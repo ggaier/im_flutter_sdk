@@ -105,7 +105,7 @@ public class EMChatManagerWrapper extends EMWrapper implements MethodCallHandler
                     Map<String, Object> map = new HashMap<>();
                     map.put("message", EMMessageHelper.toJson(msg));
                     map.put("localTime", msg.localTime());
-                    messageChannel.invokeMethod(EMSDKMethod.onMessageSuccess, map);
+                    EMChatManagerWrapper.this.onSuccess(result, channelName, map);
                 });
             }
 
@@ -129,14 +129,11 @@ public class EMChatManagerWrapper extends EMWrapper implements MethodCallHandler
                     map.put("message", EMMessageHelper.toJson(msg));
                     map.put("localTime", msg.localTime());
                     map.put("error", data);
-                    messageChannel.invokeMethod(EMSDKMethod.onMessageError, map);
+                    EMChatManagerWrapper.this.onSuccess(result, channelName, map);
                 });
             }
         });
-        asyncRunnable(() -> {
-            EMClient.getInstance().chatManager().sendMessage(msg);
-            onSuccess(result, channelName, EMMessageHelper.toJson(msg));
-        });
+        EMClient.getInstance().chatManager().sendMessage(msg);
     }
 
     private void resendMessage(JSONObject param, String channelName, Result result) throws JSONException {

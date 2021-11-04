@@ -42,7 +42,9 @@ class EMChatManager implements EMMessageStatusListener {
     Map result =
         await _channel.invokeMethod(EMSDKMethod.sendMessage, message.toJson());
     EMError.hasErrorFromResult(result);
-    return EMMessage.fromJson(result[EMSDKMethod.sendMessage]['message']);
+    print("send message result : $result");
+    final newMessageJson = result[EMSDKMethod.sendMessage]['message'];
+    return EMMessage.fromJson(newMessageJson)..msgLocalId = message.msgLocalId;
   }
 
   /// 重发消息 [message].

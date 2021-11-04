@@ -115,7 +115,7 @@ public class EMChatManagerWrapper extends EMWrapper implements MethodCallHandler
                     Map<String, Object> map = new HashMap<>();
                     map.put("progress", progress);
                     map.put("localTime", msg.localTime());
-                    messageChannel.invokeMethod(EMSDKMethod.onMessageProgressUpdate, map);
+//                    messageChannel.invokeMethod(EMSDKMethod.onMessageProgressUpdate, map);
                 });
             }
 
@@ -130,6 +130,7 @@ public class EMChatManagerWrapper extends EMWrapper implements MethodCallHandler
                     map.put("localTime", msg.localTime());
                     map.put("error", data);
                     EMChatManagerWrapper.this.onSuccess(result, channelName, map);
+//                    messageChannel.invokeMethod(EMSDKMethod.onMessageError, map);
                 });
             }
         });
